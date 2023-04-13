@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row v-motion-slide-bottom>
     <v-col cols="6" sm="3" v-for="item, i in optionsList" :key="i">
       <options :item="item" />
     </v-col>

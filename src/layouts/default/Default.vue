@@ -14,7 +14,7 @@
       </v-app-bar-title>
       <v-btn icon="mdi-brightness-4" @click="dark = !dark" />
     </v-app-bar>
-    <v-container>
+    <v-container v-motion-slide-bottom>
       <default-view />
     </v-container>
   </v-app>

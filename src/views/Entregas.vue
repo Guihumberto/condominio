@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-motion-slide-bottom>
     <v-btn
       to="/"
       flat

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-motion-slide-bottom>
     <v-btn
       to="/"
       flat
@@ -120,6 +120,7 @@
 </template>
 
 <script>
+
   import moment from 'moment'
   import 'moment/locale/pt-br'
 
