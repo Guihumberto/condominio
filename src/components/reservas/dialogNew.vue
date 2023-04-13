@@ -21,13 +21,44 @@
           </v-card-title>
           <v-card-text v-if="!save">
             <v-form @submit.prevent="saveReserva()" ref="form">
-              <v-text-field
-                label="Data"
-                variant="outlined"
-                type="date"
-                v-model="reserva.data"
-                :rules="[rules.required]"
-              ></v-text-field>
+
+              <v-dialog
+                v-model="showDateDialog"
+                persistent
+                lazy
+                width="290px"
+                full-width
+              >
+
+              <template v-slot:activator="{ props  }">
+                <v-text-field
+                  label="Data"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-calendar"
+                  type="date"
+                  :value="formatteDate"
+                  readonly
+                  v-bind="props"
+                ></v-text-field>
+              </template>
+
+              <DatePicker
+                color="blue"
+                locale="pt-br"
+                scrollable
+                v-model.string="dateDialogValue"
+                :disabled-dates="disabledDates"
+                :min-date="minDate"
+
+              > </DatePicker>
+              <div class="d-flex justify-center mt-n5 mr-10">
+                <v-btn variant="flat" @click="cancelDateDialog()">Cancelar</v-btn>
+                <v-btn color="primary" @click="reserva.data = dateDialogValue, showDateDialog = false">OK</v-btn>
+              </div>
+            </v-dialog>
+
+
+
               <v-textarea
                 label="Observação"
                 variant="outlined"
@@ -70,14 +101,23 @@
 </template>
 
 <script>
+  import moment from 'moment'
+  import { DatePicker } from 'v-calendar';
+  import 'v-calendar/style.css';
+
   import { useReservaStore } from '@/store/ReservaStore'
   const reservaStore = useReservaStore()
+
   export default {
     data () {
       return {
         dialog: false,
+        showDateDialog: false,
+        dateDialogValue: moment().format('YYYY-MM-DD'),
+        minDate: new Date().setHours(0,0,0,0),
+        hoje: moment().format('YYYY-MM-DD'),
         reserva:{
-          data: null,
+          data: moment().format('YYYY-MM-DD'),
           casa: "Casa 05",
           obs: "",
           pay: false,
@@ -87,6 +127,18 @@
         rules:{
             required: (value) => !!value || "Campo obrigatório",
         },
+      }
+    },
+    components:{
+      DatePicker
+    },
+    computed:{
+      formatteDate(){
+        return moment(this.reserva.data).format('YYYY-MM-DD')
+      },
+      disabledDates(){
+        let disableDatas = reservaStore.readReservas.map( x => new Date(x.data))
+        return disableDatas
       }
     },
     methods:{
@@ -99,6 +151,10 @@
           this.save = true
           reservaStore.addReservas(this.reserva)
         }
+      },
+      cancelDateDialog(){
+       this.dateDialogValue = this.reserva.data
+       this.showDateDialog = false
       }
     }
   }

@@ -3,6 +3,7 @@
  *
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
+import '@/plugins/moment'
 
 // Components
 import App from './App.vue'
