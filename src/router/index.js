@@ -81,6 +81,34 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/administracao',
+    component: () => import('@/layouts/default/Admin.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Admin',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/administracao/home.vue'),
+      },
+    ]
+  },
+  {
+    path: '/guarita',
+    component: () => import('@/layouts/default/Portaria.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Admin',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/portaria/home.vue'),
+      },
+    ]
+  }
 ]
 
 const router = createRouter({

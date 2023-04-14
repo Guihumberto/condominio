@@ -13,7 +13,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title>
         <v-icon size="small" icon="mdi-office-building" />
-        Condomínio
+        Administração
       </v-app-bar-title>
       <v-btn icon="mdi-brightness-4" @click="dark = !dark" />
     </v-app-bar>
