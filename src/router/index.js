@@ -74,7 +74,11 @@ const routes = [
         component: () => import("../views/Aplicativos"),
         name: "Entregas",
       },
-
+      {
+        path: "/prestacao-de-contas",
+        component: () => import("../views/Contas"),
+        name: "Contas",
+      },
     ],
   },
 ]

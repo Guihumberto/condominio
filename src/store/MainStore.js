@@ -14,6 +14,7 @@ export const useMainStore = defineStore("main", {
       {id: 9, title: "Encomenda", subtitle:"Informações Importantes", info:"Consulte aqui se existe alguma encomenda da sua casa recebida na portaria", icon: "mdi-package-variant-closed-check", color:"warning", show:true, path: 'entregas'},
       {id: 10, title: "Mudança", subtitle:"Programar mudanças", info:"Consulte aqui se existe alguma encomenda da sua casa recebida na portaria", icon: "mdi-train-car", color:"primary", show:true, path: 'mudanca'},
       {id: 11, title: "Síndico", subtitle:"Normas e outros", info:"Consulte aqui as normas do condomínio, bem como as regras e contato dos síndicos e administradores do condomínio", icon: "mdi-badge-account-alert", color:"primary", show:true, path: 'sindico'},
+      {id: 12, title: "Transparência", subtitle:"Prestação de Contas", info:"Área de Transparência dos débitos e créditos do condomínio", icon: "mdi-notebook-outline", color:"grey", show:true, path: 'prestacao-de-contas'},
     ],
   }),
   getters: {

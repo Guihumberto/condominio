@@ -8,7 +8,7 @@
     <v-divider class="my-5"></v-divider>
     <h1 class="text-h2">Síndico</h1>
 
-    <div class="text-center">
+    <div style="max-width: 880px;" class="mx-auto mt-15 text-center">
       <v-avatar color="grey" size="180"><v-icon size="180">mdi-account</v-icon></v-avatar>
       <h5 class="text-h5 mt-5">Nome do Síndico</h5>
       <h5 class="text-h6 mb-5">2020 - 2023</h5>

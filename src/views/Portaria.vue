@@ -8,7 +8,7 @@
     <v-divider class="my-5"></v-divider>
     <h1 class="text-h2">Portaria</h1>
 
-    <div class="text-center">
+    <div style="max-width: 880px;" class="mx-auto mt-15 text-center">
       <v-avatar color="grey" size="180"><v-icon size="180">mdi-account</v-icon></v-avatar>
       <h5 class="text-h5 my-5">Nome do porteiro do dia</h5>
 

@@ -9,48 +9,54 @@
     <h1 class="text-h2">Reservas</h1>
     <p class="text-subtitle-1 ml-1">Reservas para eventos na área de lazer</p>
 
-    <div class="d-flex justify-space-between my-5">
-      <info />
-      <dialog-new />
+    <div style="max-width: 880px;" class="mx-auto mt-15">
+      <div class="d-flex justify-space-between my-5">
+        <info />
+        <dialog-new />
+      </div>
+
+
+      <!-- Minhas reservas -->
+      <div>
+        <v-list>
+          <v-list-subheader>Minhas reservas</v-list-subheader>
+          <v-alert v-if="!myReserves.length" icon="mdi-information">
+            Você não possui reservas futuras
+          </v-alert>
+          <v-list-item v-for="item, i in myReserves" :key="i" class="mb-2 border rounded-lg">
+            <v-list-item-title class="font-weight-bold">
+             {{ formatteDate(item) }}
+            </v-list-item-title>
+            <template v-slot:append>
+              <v-chip :color="isPay(item).color" @click="dadosPgmto = true">
+                {{ isPay(item).text }}
+              </v-chip>
+              <v-btn size="small" class="ml-2" color="red" v-if="!item.pay" @click="cancelar = true">Cancelar</v-btn>
+            </template>
+          </v-list-item>
+
+        </v-list>
+      </div>
+
+      <!-- datas bloqueadas -->
+      <div>
+        <v-list>
+          <v-list-subheader>Datas Bloqueadas</v-list-subheader>
+          <v-list-item v-for="item, i in reservaList" :key="i" class="mb-2 border rounded-lg">
+            <v-list-item-title class="font-weight-bold">
+             {{ formatteDate(item) }}
+            </v-list-item-title>
+            <template v-slot:append>
+              <v-chip :color="isPay(item).color">
+                {{ isPay(item).text }}
+              </v-chip>
+            </template>
+          </v-list-item>
+
+        </v-list>
+      </div>
     </div>
 
-    <div>
-      <v-list style="max-width:800px" class="mx-auto">
-        <v-list-subheader>Minhas reservas</v-list-subheader>
-        <v-alert v-if="!myReserves.length" icon="mdi-information">
-          Você não possui reservas futuras
-        </v-alert>
-        <v-list-item v-for="item, i in myReserves" :key="i" class="mb-2 border rounded-lg">
-          <v-list-item-title class="font-weight-bold">
-           {{ formatteDate(item) }}
-          </v-list-item-title>
-          <template v-slot:append>
-            <v-chip :color="isPay(item).color" @click="dadosPgmto = true">
-              {{ isPay(item).text }}
-            </v-chip>
-            <v-btn size="small" class="ml-2" color="red" v-if="!item.pay" @click="cancelar = true">Cancelar</v-btn>
-          </template>
-        </v-list-item>
-
-      </v-list>
-    </div>
-
-    <div>
-      <v-list style="max-width:800px" class="mx-auto">
-        <v-list-subheader>Datas Bloqueadas</v-list-subheader>
-        <v-list-item v-for="item, i in reservaList" :key="i" class="mb-2 border rounded-lg">
-          <v-list-item-title class="font-weight-bold">
-           {{ formatteDate(item) }}
-          </v-list-item-title>
-          <template v-slot:append>
-            <v-chip :color="isPay(item).color">
-              {{ isPay(item).text }}
-            </v-chip>
-          </template>
-        </v-list-item>
-
-      </v-list>
-    </div>
 
     <v-dialog
       v-model="cancelar"

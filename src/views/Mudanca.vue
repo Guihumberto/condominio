@@ -7,78 +7,78 @@
     </v-btn>
     <v-divider class="my-5"></v-divider>
     <h1 class="text-h2">Mudança</h1>
-    <h6 class="text-h6">Informe a data da mudança a administração.</h6>
+    <h6 class="text-subtitle-1">Informe a data da mudança a administração.</h6>
 
-    <v-row v-if="!pedido" class="mt-5">
-      <v-col cols="12" sm="6">
+    <div style="max-width: 880px;" class="mx-auto mt-15 text-center">
+      <v-row v-if="!pedido" class="mt-5">
+        <v-col cols="12" sm="6">
+          <v-card
+           color="primary"
+           title="Entrada"
+           subtitle="Mudança para o condomínio"
+           height="250"
+           @click="dialog = true"
+          >
+            <v-card-item>
+              <div class="text-center">
+                <v-icon
+                  icon="mdi-truck-delivery-outline"
+                  size="100"
+                ></v-icon>
+                <div class="text-h6">Chegando</div>
+              </div>
+            </v-card-item>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-card
+           color="error"
+           title="Saída"
+           subtitle="Saída do condomínio"
+           height="250"
+           @click="dialog = true"
+          >
+            <v-card-item>
+              <div class="text-center">
+                <v-icon
+                  icon="mdi-truck-delivery-outline"
+                  style="transform: scaleX(-1);"
+                  size="100"
+                ></v-icon>
+                <div class="text-h6">Saindo</div>
+              </div>
+            </v-card-item>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row v-else class="mt-5">
         <v-card
-         color="primary"
-         title="Entrada"
-         subtitle="Mudança para o condomínio"
-         height="250"
-         @click="dialog = true"
+          class="mx-auto"
+          variant="outlined"
         >
           <v-card-item>
-            <div class="text-center">
-              <v-icon
-                icon="mdi-truck-delivery-outline"
-                size="100"
-              ></v-icon>
-              <div class="text-h6">Chegando</div>
+            <div>
+              <div class="text-overline mb-1">
+                Entrada: 12/12/2023
+              </div>
+              <div class="text-h6 mb-1">
+                Solicitação de Entrada
+              </div>
+              <div class="text-caption">Aguarde a liberação pela administração do condomínio.</div>
             </div>
           </v-card-item>
+
+          <v-card-actions>
+            <v-btn variant="text" @click="cancelar = true, analise = false">
+              cancelar pedido
+            </v-btn>
+            <v-btn color="warning" variant="tonal" @click="cancelar = true, analise = true">
+              em análise
+            </v-btn>
+          </v-card-actions>
         </v-card>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <v-card
-         color="error"
-         title="Saída"
-         subtitle="Saída do condomínio"
-         height="250"
-         @click="dialog = true"
-        >
-          <v-card-item>
-            <div class="text-center">
-              <v-icon
-                icon="mdi-truck-delivery-outline"
-                style="transform: scaleX(-1);"
-                size="100"
-              ></v-icon>
-              <div class="text-h6">Saindo</div>
-            </div>
-          </v-card-item>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row v-else class="mt-5">
-      <v-card
-        class="mx-auto"
-        variant="outlined"
-      >
-        <v-card-item>
-          <div>
-            <div class="text-overline mb-1">
-              Entrada: 12/12/2023
-            </div>
-            <div class="text-h6 mb-1">
-              Solicitação de Entrada
-            </div>
-            <div class="text-caption">Aguarde a liberação pela administração do condomínio.</div>
-          </div>
-        </v-card-item>
-
-        <v-card-actions>
-          <v-btn variant="text" @click="cancelar = true, analise = false">
-            cancelar pedido
-          </v-btn>
-          <v-btn color="warning" variant="tonal" @click="cancelar = true, analise = true">
-            em análise
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-row>
-
+      </v-row>
+    </div>
     <v-dialog
       v-model="dialog"
       width="850"
