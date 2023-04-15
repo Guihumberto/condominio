@@ -3,12 +3,11 @@
     variant="flat"
   >
     <v-list>
-      <v-list-subheader>Visão</v-list-subheader>
       <v-list-item
         v-for="(item, i) in items"
         :key="i"
         :value="item"
-        active-color="success"
+        active-color="primary"
         @click.stop="goTo(item.path)"
       >
         <template v-slot:prepend>
@@ -22,17 +21,18 @@
 </template>
 
 <script>
-  import { useMainStore } from "../../store/MainStore";
-  const mainStore = useMainStore();
+  import { useAdminStore } from "../../store/administracao/AdminStore";
+  const adminStore = useAdminStore();
 
   export default {
     data: () => ({
-      items:[
-        {icon: "mdi-account-tie-woman", title: "Administação", path:"/admin/administracao"},
-        {icon: "mdi-account-tie-hat", title: "Portaria", path:"/guarita"},
-        {icon: "mdi-human-male-female-child", title: "Morador", path:"/"}
-      ]
+
     }),
+    computed:{
+      items(){
+        return adminStore.readListMenu
+      }
+    },
     methods:{
       goTo(item){
         if(item == 'avisos'){

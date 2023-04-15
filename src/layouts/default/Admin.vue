@@ -4,7 +4,7 @@
       v-model="drawer"
       >
       <headerbar />
-      <menuList />
+      <menuAdmin />
       <template v-slot:append>
         <menuArea />
       </template>
@@ -27,8 +27,10 @@
   import {ref} from 'vue'
   import DefaultView from './View.vue'
   import headerbar from '@/components/barLeft/header.vue'
-  import menuList from '@/components/barLeft/menuList.vue'
   import menuArea from '@/components/barLeft/menuArea.vue'
+  import menuAdmin from '@/components/barLeft/menuAdmin.vue'
+
+
   let drawer = ref(false)
   let dark = ref(false)
 

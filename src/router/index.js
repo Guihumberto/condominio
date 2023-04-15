@@ -82,7 +82,7 @@ const routes = [
     ],
   },
   {
-    path: '/administracao',
+    path: '/admin/administracao',
     component: () => import('@/layouts/default/Admin.vue'),
     children: [
       {
@@ -93,6 +93,36 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/administracao/home.vue'),
       },
+      {
+        path: '/admin/avisos',
+        name: 'admin-avisos',
+        component: () => import('@/views/administracao/avisos.vue'),
+      },
+      {
+        path: '/admin/mudancas',
+        name: 'admin-mudancas',
+        component: () => import('@/views/administracao/mudancas.vue'),
+      },
+      {
+        path: '/admin/reservas',
+        name: 'admin-reservas',
+        component: () => import('@/views/administracao/reservas.vue'),
+      },
+      {
+        path: '/admin/prestacao-de-contas',
+        name: 'admin-prestacao-de-contas',
+        component: () => import('@/views/administracao/prestacao-contas.vue'),
+      },
+      {
+        path: '/admin-configs',
+        name: 'admin-configuracoes',
+        component: () => import('@/views/administracao/configs.vue'),
+      },
+      {
+        path: '/admin-contabilidade',
+        name: 'admin-contabilidade',
+        component: () => import('@/views/administracao/contabilidade.vue'),
+      },
     ]
   },
   {
@@ -101,7 +131,7 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Admin',
+        name: 'Guarita',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
