@@ -10,10 +10,50 @@
     <p class="text-subtitle-1">Publicar e editar e avisos para os moradores.</p>
 
     <div style="max-width: 880px;" class="mx-auto mt-15">
-      lista de avisos <br>
-      incluir avisos <br>
-      programar publicacao de avisos <br>
-      caixa de avisos em espera <br>
+      <v-btn prepend-icon="mdi-pencil-outline" color="success" to="/admin/avisos/new">Escrever</v-btn>
+      <v-divider class="my-5"></v-divider>
+
+      <v-list class="border py-0">
+        <v-list-subheader>Aguardando Publicação</v-list-subheader>
+        <v-list-item class="border-t">
+          <template v-slot:prepend>
+            <v-icon>
+              mdi-timer-sand
+            </v-icon>
+          </template>
+          <v-list-item-title>Título</v-list-item-title>
+          <v-list-item-subtitle>Subtititulo</v-list-item-subtitle>
+          <template v-slot:append>
+            <div class="d-flex flex-column text-center">
+              <p class="text-caption mb-1">Publicação automática <br> para dia 12/12/2023</p>
+              <v-btn size="small" color="success" variant="outlined">
+                Publicar agora
+              </v-btn>
+            </div>
+          </template>
+        </v-list-item>
+      </v-list>
+
+      <v-list class="border py-0 mt-5">
+        <v-list-subheader>Avisos Publicados</v-list-subheader>
+        <v-list-item class="border-t" v-for="item, i in 5" :key="i">
+          <template v-slot:prepend>
+            <v-icon>
+              mdi-note-text-outline
+            </v-icon>
+          </template>
+          <v-list-item-title>Título</v-list-item-title>
+          <v-list-item-subtitle>Subtititulo</v-list-item-subtitle>
+          <template v-slot:append>
+           <div class="text-center">
+            <div class="text-caption"><v-icon size="small">mdi-calendar</v-icon> 12/12/2023</div>
+           </div>
+          </template>
+        </v-list-item>
+        <v-list-item class="border-t">
+          <v-pagination length="1" v-model="page"></v-pagination>
+        </v-list-item>
+      </v-list>
 
     </div>
 
@@ -22,6 +62,11 @@
 
 <script>
   export default {
+    data(){
+      return{
+        page: 1
+      }
+    }
 
   }
 </script>

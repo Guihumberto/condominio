@@ -97,6 +97,14 @@ const routes = [
         path: '/admin/avisos',
         name: 'admin-avisos',
         component: () => import('@/views/administracao/avisos.vue'),
+        children: [
+
+        ]
+      },
+      {
+        path: '/admin/avisos/new',
+        name: 'admin-avisos-new',
+        component: () => import('@/views/administracao/avisos-new.vue'),
       },
       {
         path: '/admin/mudancas',
