@@ -4,6 +4,7 @@
     :subtitle="item.subtitle"
     elevation="5"
     @click.stop="goTo(item.path)"
+    :append-icon="item.id == 14 ? 'mdi-adjust' : ''"
   >
     <v-card-item>
       <div class="py-2 text-center">
@@ -88,5 +89,6 @@
   position: absolute;
   width: 100%;
 }
+
 
 </style>

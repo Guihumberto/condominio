@@ -2,6 +2,12 @@ import { defineStore } from "pinia";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
+    areaList:[
+      {id:1, icon: "mdi-account-tie-woman", title: "Administação", path:"/admin/administracao"},
+      {id:2, icon: "mdi-account-tie-hat", title: "Portaria", path:"/guarita"},
+      {id:3, icon: "mdi-human-male-female-child", title: "Morador", path:"/"}
+    ],
+    areaSelected: 3,
     listMenu: [
       {id: 1, title: "Home", subtitle:"Voltar a tela inicial", info:"Mostar todas as opções e fazer login", icon: "mdi-home", color:"success", show:false, path: 'home'},
       {id: 2, title: "Avisos", subtitle:"Informações importantes", info:"Consulte aqui informações importantes sobre o condomínio e mantenha-se atualizado", icon: "mdi-bullhorn-outline", color:"success", show:true, path: 'avisos'},
@@ -20,9 +26,17 @@ export const useMainStore = defineStore("main", {
   getters: {
     readListMenu(){
       return this.listMenu
+    },
+    readListArea(){
+      return this.areaList
+    },
+    readAreaSelect(){
+      return this.areaSelected
     }
   },
   actions: {
-
+    selectArea(item){
+      this.areaSelected = item.id
+    }
   },
 });

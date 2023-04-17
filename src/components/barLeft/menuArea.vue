@@ -5,11 +5,11 @@
     <v-list>
       <v-list-subheader>Visão</v-list-subheader>
       <v-list-item
-        v-for="(item, i) in items"
+        v-for="(item, i) in areaList"
         :key="i"
         :value="item"
         active-color="success"
-        @click.stop="goTo(item.path)"
+        @click.stop="goTo(item)"
       >
         <template v-slot:prepend>
           <v-icon :icon="item.icon"></v-icon>
@@ -27,19 +27,16 @@
 
   export default {
     data: () => ({
-      items:[
-        {icon: "mdi-account-tie-woman", title: "Administação", path:"/admin/administracao"},
-        {icon: "mdi-account-tie-hat", title: "Portaria", path:"/guarita"},
-        {icon: "mdi-human-male-female-child", title: "Morador", path:"/"}
-      ]
     }),
+    computed:{
+      areaList(){
+        return mainStore.readListArea
+      }
+    },
     methods:{
       goTo(item){
-        if(item == 'avisos'){
-          this.$router.push(`${item}/1`)
-        } else {
-          this.$router.push(item)
-        }
+          mainStore.selectArea(item)
+          this.$router.push(item.path)
       }
     }
   }

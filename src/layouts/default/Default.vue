@@ -3,6 +3,10 @@
     <v-navigation-drawer
       v-model="drawer"
       >
+      <template v-slot:prepend>
+        <visao />
+      </template>
+
       <headerbar />
       <menuList />
       <template v-slot:append>
@@ -29,6 +33,8 @@
   import headerbar from '@/components/barLeft/header.vue'
   import menuList from '@/components/barLeft/menuList.vue'
   import menuArea from '@/components/barLeft/menuArea.vue'
+  import visao from '@/components/barLeft/visao.vue'
+
   let drawer = ref(false)
   let dark = ref(false)
 
