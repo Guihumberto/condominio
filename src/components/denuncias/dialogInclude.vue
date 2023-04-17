@@ -102,7 +102,6 @@
         if(valid){
           this.entrada.dateCreate = Date.now()
           this.save = true
-          console.log('salvo');
           // this.clearFieldsEntrada()
         }
       },

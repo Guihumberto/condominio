@@ -18,7 +18,7 @@
             size="100"
           ></v-icon>
         </v-badge>
-          <div class="text-h5 font-weight-bold">{{item.title}}</div>
+        <div class="text-h5 font-weight-bold" style="min-height: 63px;">{{item.title}}</div>
         </div>
     </v-card-item>
     <v-card-actions>

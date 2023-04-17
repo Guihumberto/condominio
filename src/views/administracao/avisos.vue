@@ -15,14 +15,14 @@
 
       <v-list class="border py-0">
         <v-list-subheader>Aguardando Publicação</v-list-subheader>
-        <v-list-item class="border-t">
+        <v-list-item class="border-t" v-for="item, i in listPendentes" :key="i">
           <template v-slot:prepend>
             <v-icon>
               mdi-timer-sand
             </v-icon>
           </template>
-          <v-list-item-title>Título</v-list-item-title>
-          <v-list-item-subtitle>Subtititulo</v-list-item-subtitle>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
           <template v-slot:append>
             <div class="d-flex flex-column text-center">
               <p class="text-caption mb-1">Publicação automática <br> para dia 12/12/2023</p>
@@ -36,17 +36,17 @@
 
       <v-list class="border py-0 mt-5">
         <v-list-subheader>Avisos Publicados</v-list-subheader>
-        <v-list-item class="border-t" v-for="item, i in 5" :key="i">
+        <v-list-item class="border-t" v-for="item, i in listPublicados" :key="i">
           <template v-slot:prepend>
             <v-icon>
               mdi-note-text-outline
             </v-icon>
           </template>
-          <v-list-item-title>Título</v-list-item-title>
-          <v-list-item-subtitle>Subtititulo</v-list-item-subtitle>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
           <template v-slot:append>
            <div class="text-center">
-            <div class="text-caption"><v-icon size="small">mdi-calendar</v-icon> 12/12/2023</div>
+            <div class="text-caption"><v-icon size="small">mdi-calendar</v-icon> {{ item.dateCreate}}</div>
            </div>
           </template>
         </v-list-item>
@@ -61,10 +61,24 @@
 </template>
 
 <script>
+  import { useReadStore } from '@/store/ReadStore'
+  const readStore = useReadStore()
+
   export default {
     data(){
       return{
         page: 1
+      }
+    },
+    computed:{
+      listAvisos(){
+        return readStore.readAllAvisos
+      },
+      listPendentes(){
+        return this.listAvisos.filter(x => !x.show)
+      },
+      listPublicados(){
+        return this.listAvisos.filter(x => x.show)
       }
     }
 

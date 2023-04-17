@@ -13,7 +13,6 @@
     computed:{
       typeSelect(){
         let type = mainStore.readAreaSelect
-        console.log("tipo", type);
         if(type == 1){
           return { title: "Administração", color:"primary", icon:"mdi-account-tie-woman"}
         } else if(type == 2) {
