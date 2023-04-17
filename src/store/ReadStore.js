@@ -13,7 +13,7 @@ export const useReadStore = defineStore("read", {
       {id: 7, title: "Título do Comunicado 7", text: "Nihil, mollitiaqui mollitia, ipsa inventore velit vel aspernatur? Aperiam, laborum? Illo, maiores!", dateCreate: "01/06/2023", show:true, programado:false},
       {id: 8, title: "Título do Comunicado 8", text: "Nihil, mollitiaqui mollitia, ipsa inventore velit vel aspernatur? Aperiam, laborum? Illo, maiores!", dateCreate: "01/07/2023", show:true, programado:false},
       {id: 9, title: "Título do Comunicado 9", text: "Nihil, mollitiaqui mollitia, ipsa inventore velit vel aspernatur? Aperiam, laborum? Illo, maiores!", dateCreate: "01/08/2023", show:false, programado:true},
-      {id: 10, title: "Título do Comunicado 10", text: "Nihil, mollitiaqui mollitia, ipsa inventore velit vel aspernatur? Aperiam, laborum? Illo, maiores!", dateCreate: "01/09/2023", show:false},
+      {id: 10, title: "Título do Comunicado 10", text: "Nihil, mollitiaqui mollitia, ipsa inventore velit vel aspernatur? Aperiam, laborum? Illo, maiores!", dateCreate: "01/09/2023", show:false, programado:false},
     ]
   }),
   getters: {
@@ -33,6 +33,10 @@ export const useReadStore = defineStore("read", {
   actions: {
     addReadList(item){
       this.listRead.push(item)
+    },
+    pusblish(item){
+      let aviso = this.listComunicados.filter( x => x.id == item.id)
+      aviso[0].show = true
     }
   },
 });
