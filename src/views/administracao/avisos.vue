@@ -17,7 +17,7 @@
 
       <v-list class="border py-0">
         <v-list-subheader>Aguardando Publicação</v-list-subheader>
-        <v-list-item v-if="listPendentes.length" class="border-t" v-for="item, i in listPendentes" :key="i">
+        <v-list-item @click="viewAviso = true"  v-if="listPendentes.length" class="border-t" v-for="item, i in listPendentes" :key="i">
           <template v-slot:prepend>
             <v-icon>
               mdi-timer-sand
