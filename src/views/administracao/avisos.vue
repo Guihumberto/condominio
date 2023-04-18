@@ -15,7 +15,7 @@
       </div>
       <v-divider class="my-5"></v-divider>
 
-      <v-list class="border py-0">
+      <v-list nav class="border py-0">
         <v-list-subheader>Aguardando Publicação</v-list-subheader>
         <v-list-item @click="viewAviso = true"  v-if="listPendentes.length" class="border-t" v-for="item, i in listPendentes" :key="i">
           <template v-slot:prepend>
@@ -45,9 +45,9 @@
         </v-alert>
       </v-list>
 
-      <v-list class="border py-0 mt-5">
+      <v-list nav class="border py-0 mt-5">
         <v-list-subheader>Avisos Publicados</v-list-subheader>
-        <v-list-item class="border-t" v-for="item, i in listPublicados" :key="i">
+        <v-list-item @click="viewAviso = true" class="border-t" v-for="item, i in listPublicados" :key="i">
           <template v-slot:prepend>
             <v-icon>
               mdi-note-text-outline
@@ -86,7 +86,11 @@
       <v-dialog v-model="viewAviso" max-width="1080">
         <v-card>
           <v-card-item>
-            menu para edição
+            <div class="d-flex justify-space-between">
+              menu para edição
+              <v-btn @click="viewAviso = false" flat icon="mdi-close" />
+
+            </div>
           </v-card-item>
           <v-card-item>
             <h1 class="text-h4 mb-5">Título do Comunicado</h1>
