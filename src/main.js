@@ -6,6 +6,8 @@
 import '@/plugins/moment'
 
 import { MotionPlugin } from '@vueuse/motion'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.snow.css'
 
 // Components
 import App from './App.vue'
@@ -17,6 +19,8 @@ import { createApp } from 'vue'
 import { registerPlugins } from '@/plugins'
 
 const app = createApp(App)
+
+app.use(VueQuillEditor)
 
 app.use(MotionPlugin)
 

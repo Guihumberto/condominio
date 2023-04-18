@@ -11,9 +11,19 @@
 
     <div style="max-width: 880px;" class="mx-auto mt-15">
 
-      texto para edição
+      <v-text-field
+        label="Título"
+        variant="outlined"
+        placeholder="Escreva um título para seu comunicado"
+        v-model="title"
+        required
+      ></v-text-field>
 
-      mostrar uma pagina
+      <vueQuillEditor />
+
+      <div class=" mt-5 text-right">
+        <v-btn variant="flat" color="success">Salvar</v-btn>
+      </div>
 
 
     </div>
@@ -22,10 +32,15 @@
 </template>
 
 <script>
+import vueQuillEditor from '@/components/vueQuillEditor.vue'
+
   export default {
+    components:{
+      vueQuillEditor
+    },
     data(){
       return{
-        page: 1
+        title: null
       }
     }
 

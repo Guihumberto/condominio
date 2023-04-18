@@ -10,7 +10,9 @@
     <p class="text-subtitle-1">Publicar e editar e avisos para os moradores.</p>
 
     <div style="max-width: 880px;" class="mx-auto mt-15">
-      <v-btn prepend-icon="mdi-pencil-outline" color="success" to="/admin/avisos/new">Escrever</v-btn>
+      <div class="text-right">
+        <v-btn prepend-icon="mdi-pencil-outline" color="success" to="/admin/avisos/new">Escrever</v-btn>
+      </div>
       <v-divider class="my-5"></v-divider>
 
       <v-list class="border py-0">
@@ -24,10 +26,16 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
           <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
           <template v-slot:append>
-            <div class="d-flex flex-column text-center">
-              <p class="text-caption mb-1" v-if="item.programado"> <v-chip size="x-small" color="primary">Publicação automática</v-chip> <br>  12/12/2023</p>
+            <div class="d-flex text-center">
+              <!-- <p class="text-caption mb-1" v-if="item.programado"> <v-chip size="x-small" color="primary">Publicação automática</v-chip> <br>  12/12/2023</p> -->
+              <v-btn size="small" color="error" variant="outlined" class="mr-2">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn size="small" color="grey" variant="outlined" class="mr-2">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
               <v-btn size="small" color="success" variant="outlined" @click="confirm(item)">
-                Publicar agora
+                <v-icon>mdi-send</v-icon>
               </v-btn>
             </div>
           </template>
@@ -75,6 +83,35 @@
         </v-card>
       </v-dialog>
 
+      <v-dialog v-model="viewAviso" max-width="1080">
+        <v-card>
+          <v-card-item>
+            menu para edição
+          </v-card-item>
+          <v-card-item>
+            <h1 class="text-h4 mb-5">Título do Comunicado</h1>
+            <div class="text-subtitle-1">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eaque saepe excepturi quaerat,
+                natus tenetur, cumque delectus est dignissimos in ducimus aut, cum nisi iusto iure distinctio voluptates! Voluptatem, repudiandae.
+              </p>
+              <p class="my-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eaque saepe excepturi quaerat,
+                natus tenetur, cumque delectus est dignissimos in ducimus aut, cum nisi iusto iure distinctio voluptates! Voluptatem, repudiandae.
+              </p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eaque saepe excepturi quaerat,
+                natus tenetur, cumque delectus est dignissimos in ducimus aut, cum nisi iusto iure distinctio voluptates! Voluptatem, repudiandae.
+              </p>
+              <div class="text-right my-5">
+                <div class="text-center">
+                  <p class="my-5">Data</p>
+                  <p>Nome</p>
+                  <p>Administração</p>
+                </div>
+              </div>
+            </div>
+          </v-card-item>
+        </v-card>
+      </v-dialog>
+
     </div>
 
   </div>
@@ -89,7 +126,8 @@
       return{
         page: 1,
         dialogConfirm: false,
-        aviso: null
+        aviso: null,
+        viewAviso: true
       }
     },
     computed:{
