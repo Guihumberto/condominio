@@ -17,7 +17,7 @@
 
       <v-list nav class="border py-0">
         <v-list-subheader>Aguardando Publicação</v-list-subheader>
-        <v-list-item @click="viewAviso = true"  v-if="listPendentes.length" class="border-t" v-for="item, i in listPendentes" :key="i">
+        <v-list-item @click.stop="comunicadoNaTela(item)"  v-if="listPendentes.length" class="border-t" v-for="item, i in listPendentes" :key="i">
           <template v-slot:prepend>
             <v-icon>
               mdi-timer-sand
@@ -28,13 +28,13 @@
           <template v-slot:append>
             <div class="d-flex text-center">
               <!-- <p class="text-caption mb-1" v-if="item.programado"> <v-chip size="x-small" color="primary">Publicação automática</v-chip> <br>  12/12/2023</p> -->
-              <v-btn size="small" color="error" variant="outlined" class="mr-2">
+              <v-btn size="small" color="error" variant="outlined" class="mr-2" @click.stop="deleteAviso(item)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
               <v-btn size="small" color="grey" variant="outlined" class="mr-2">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-btn size="small" color="success" variant="outlined" @click="confirm(item)">
+              <v-btn size="small" color="success" variant="outlined" @click.stop="confirm(item)">
                 <v-icon>mdi-send</v-icon>
               </v-btn>
             </div>
@@ -47,7 +47,7 @@
 
       <v-list nav class="border py-0 mt-5">
         <v-list-subheader>Avisos Publicados</v-list-subheader>
-        <v-list-item @click="viewAviso = true" class="border-t" v-for="item, i in listPublicados" :key="i">
+        <v-list-item @click.stop="comunicadoNaTela(item)" class="border-t" v-for="item, i in listPublicados" :key="i">
           <template v-slot:prepend>
             <v-icon>
               mdi-note-text-outline
@@ -66,7 +66,7 @@
         </v-list-item>
       </v-list>
 
-
+      <!-- confirmar exclusao do aviso -->
       <v-dialog v-model="dialogConfirm"  width="auto">
         <v-card>
           <v-card-title class="d-flex justify-space-between bg-success">
@@ -83,31 +83,26 @@
         </v-card>
       </v-dialog>
 
+      <!-- vizualizar o aviso no dialog -->
       <v-dialog v-model="viewAviso" max-width="1080">
         <v-card>
           <v-card-item>
-            <div class="d-flex justify-space-between">
-              menu para edição
+            <div class="d-flex justify-space-between align-center">
+              <div>Texto para leitura</div>
               <v-btn @click="viewAviso = false" flat icon="mdi-close" />
 
             </div>
           </v-card-item>
-          <v-card-item>
-            <h1 class="text-h4 mb-5">Título do Comunicado</h1>
-            <div class="text-subtitle-1">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eaque saepe excepturi quaerat,
-                natus tenetur, cumque delectus est dignissimos in ducimus aut, cum nisi iusto iure distinctio voluptates! Voluptatem, repudiandae.
+          <v-card-item class="border ma-5">
+            <h1 class="text-h4 mb-5">{{ comunicadoScreen.title }}</h1>
+            <div class="text-subtitle-1" >
+              <p class="my-5">
+                {{ comunicadoScreen.text }}
               </p>
-              <p class="my-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eaque saepe excepturi quaerat,
-                natus tenetur, cumque delectus est dignissimos in ducimus aut, cum nisi iusto iure distinctio voluptates! Voluptatem, repudiandae.
-              </p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eaque saepe excepturi quaerat,
-                natus tenetur, cumque delectus est dignissimos in ducimus aut, cum nisi iusto iure distinctio voluptates! Voluptatem, repudiandae.
-              </p>
+
               <div class="text-right my-5">
                 <div class="text-center">
-                  <p class="my-5">Data</p>
-                  <p>Nome</p>
+                  <p class="my-5">São Luís - MA, 19 de abril de 2023</p>
                   <p>Administração</p>
                 </div>
               </div>
@@ -116,22 +111,35 @@
         </v-card>
       </v-dialog>
 
+      <!-- dialog de exclusao  -->
+      <v-dialog v-model="dialogExclusao" max-width="580">
+        <dialogTela :dataConfirm="dataConfirm" @close="dialogExclusao = false" @confirmYes="confirmExclusao()" />
+      </v-dialog>
+
     </div>
 
   </div>
 </template>
 
 <script>
+  import dialogTela from '@/components/Confirm.vue'
   import { useReadStore } from '@/store/ReadStore'
   const readStore = useReadStore()
 
   export default {
+    components:{
+      dialogTela
+    },
     data(){
       return{
         page: 1,
         dialogConfirm: false,
         aviso: null,
-        viewAviso: true
+        viewAviso: false,
+        comunicadoScreen: {},
+        dialogExclusao: false,
+        dataExclusao: {},
+        dataConfirm: {}
       }
     },
     computed:{
@@ -154,6 +162,23 @@
         readStore.pusblish(item)
         this.aviso = null
         this.dialogConfirm = false
+      },
+      comunicadoNaTela(item){
+        this.viewAviso = true
+        this.comunicadoScreen = item
+      },
+      deleteAviso(item){
+        this.dialogExclusao = true
+        this.dataExclusao = item
+        this.dataConfirm = {
+          color: 'red',
+          title: "Confirmação de Exclusão",
+          text: "Deseja fazer a exclusão da publicação?"
+        }
+      },
+      confirmExclusao(){
+        this.dialogExclusao = false
+        console.log(this.dataExclusao);
       }
     },
   }
