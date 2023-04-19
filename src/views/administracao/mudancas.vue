@@ -65,7 +65,7 @@
               <span class="mr-5">O pagamento da taxa de reserva foi realizado?</span>
             </div>
             <div>
-              <v-switch label="Pago" color="primary" v-model="pedido.pay"></v-switch>
+              <v-switch color="primary" v-model="pedido.pay"></v-switch>
             </div>
           </div>
 
