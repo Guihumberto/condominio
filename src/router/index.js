@@ -65,6 +65,11 @@ const routes = [
         name: "Denuncias",
       },
       {
+        path: "/denuncias/escrever",
+        component: () => import("../views/DenunciaWrite"),
+        name: "Escrever",
+      },
+      {
         path: "/entregas",
         component: () => import("../views/Entregas"),
         name: "Correios",
@@ -110,6 +115,11 @@ const routes = [
         path: '/admin/mudancas',
         name: 'admin-mudancas',
         component: () => import('@/views/administracao/mudancas.vue'),
+      },
+      {
+        path: '/admin/analise/:id',
+        name: 'admin-analise',
+        component: () => import('@/views/administracao/analise-denuncia.vue'),
       },
       {
         path: '/admin/reservas',

@@ -6,7 +6,7 @@
       color="grey"><v-icon>mdi-chevron-left</v-icon>
     </v-btn>
     <v-divider class="my-5"></v-divider>
-    <h1 class="text-h2">Solicitações</h1>
+    <h1 class="text-xs-h2 text-md-h2">Solicitações</h1>
     <p class="ml-1 text-subtitle-1">Análise de solicitações de reservas da área de lazar, mudança e denúncias.</p>
 
     <div style="max-width: 880px;" class="mx-auto mt-15">
@@ -25,7 +25,7 @@
           @click="analisePedido(item)"
         >
           <v-list-item-title>{{ item.typeName }}</v-list-item-title>
-          <v-list-item-subtitle>{{ item.subtitle}} - {{ item.casa }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ item.subtitle}} <span v-if="item.casa">- {{ item.casa }}</span> </v-list-item-subtitle>
           <template v-slot:append>
             <div class="d-flex align-center">
               <v-icon class="mr-2" color="grey">mdi-calendar</v-icon>
@@ -51,7 +51,30 @@
           <span>Análise do Pedido</span>
           <v-btn icon="mdi-close" flat color="transparent" @click="dialogConfirm = false" />
         </v-card-title>
-        <v-card-text>
+        <v-card-text v-if="pedido.type == 3">
+          <p class="text-center">Deseja responder a denúncia agora?</p>
+          <div class="d-flex align-center justify-center pa-5">
+            <v-btn color="primary" @click="dialogConfirm = false" variant="outlined" class="mr-2">Não</v-btn>
+            <v-btn color="primary" @click="answerDenuncia(pedido)">Sim</v-btn>
+          </div>
+        </v-card-text>
+        <v-card-text v-else-if="pedido.type == 2">
+          <div v-if="pedido.idUser" class="border pa-3 mb-5">
+            Dados do usuário
+          </div>
+          <div v-else class="border pa-3 mb-5">
+            {{ pedido.typeName }} <br>
+            Nome: {{ pedido.casa }}<br>
+            casa {{ pedido.casa }}<br>
+            dia: {{ pedido.data }}<br>
+          </div>
+          <p class="text-center">Deseja autorizar a mudança?</p>
+          <div class="d-flex align-center justify-center pa-5">
+            <v-btn color="primary" @click="dialogConfirm = false" variant="outlined" class="mr-2">Não</v-btn>
+            <v-btn color="primary" @click="answerDenuncia(pedido)">Sim</v-btn>
+          </div>
+        </v-card-text>
+        <v-card-text v-else>
           <div>
             {{ pedido.typeName }} <br>
             Nome: {{ pedido.casa }}<br>
@@ -90,7 +113,6 @@
                  </div>
           </div>
 
-
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -100,8 +122,12 @@
 
 <script>
   import { useReservaStore } from '@/store/ReservaStore'
+  import { useMudancaStore } from '@/store/MudancaStore'
+  import { useDenunciaStore } from '@/store/DenunciaStore'
 
   const reservaStore = useReservaStore()
+  const mudancaStore = useMudancaStore()
+  const denunciaStore = useDenunciaStore()
 
   export default {
     data(){
@@ -117,10 +143,15 @@
     computed:{
       reservaListPendente(){
         let reservas = reservaStore.readReservas
+        let mudancas = mudancaStore.readSolicitacoesEntrada
+        let saida = mudancaStore.readSolicitacoesSaida
+        let denuncias = denunciaStore.readDenuncias
 
         let list = []
 
         reservas = reservas.filter(x => !x.authorized)
+        mudancas = mudancas.filter(x => !x.authorized)
+        denuncias = denuncias.filter(x => !x.answer)
 
         if(reservas.length > 0){
           reservas.forEach(el => {
@@ -128,6 +159,42 @@
             el.typeName = "Reserva da área de lazer"
             el.subtitle = "Reserva"
             el.icon = "mdi-pool",
+            el.color = 'primary'
+
+            list.push(el)
+          });
+        }
+
+        if(mudancas.length > 0){
+          mudancas.forEach(el => {
+            el.type = 2
+            el.typeName = "Mudança (entrada)"
+            el.subtitle = "Chegada de novos moradores"
+            el.icon = "mdi-car-convertible",
+            el.color = 'primary'
+
+            list.push(el)
+          });
+        }
+
+        if(saida.length > 0){
+          saida.forEach(el => {
+            el.type = 2
+            el.typeName = "Mudança (saída)"
+            el.subtitle = "Saída de morador"
+            el.icon = "mdi-car-arrow-left",
+            el.color = 'primary'
+
+            list.push(el)
+          });
+        }
+
+        if(denuncias.length > 0){
+          denuncias.forEach(el => {
+            el.type = 3
+            el.typeName = "Denúncias"
+            el.subtitle = "Denúncia de morador"
+            el.icon = "mdi-alert-octagram",
             el.color = 'primary'
 
             list.push(el)
@@ -166,6 +233,10 @@
       negarSolicitacao(pedido){
         console.log(pedido);
         this.dialogConfirm = false
+      },
+      answerDenuncia(pedido){
+        this.dialogConfirm = false
+        this.$router.push(`/admin/analise/${pedido.id}`)
       }
     }
   }

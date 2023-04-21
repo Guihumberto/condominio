@@ -1,7 +1,7 @@
 <template>
   <div class="quillEditorContainer">
     <div class="quillEditor">
-      <div ref="editor" style="height: 500px;"></div>
+      <div ref="editor" style="height: 300px;"></div>
     </div>
   </div>
 </template>
